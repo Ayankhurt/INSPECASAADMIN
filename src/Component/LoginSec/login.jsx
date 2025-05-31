@@ -1,8 +1,15 @@
 import React from 'react';
-import image from '../images/Login.jpg';
+import { useNavigate } from 'react-router-dom';
+import image from '../../images/Login.jpg';
 import './login.css';
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate('/users');
+  };
+
   return (
     <div className="login-page">
       <div className="image-container">
@@ -27,7 +34,7 @@ const Login = () => {
           <label htmlFor="remember">Remember me</label>
         </div>
 
-        <button>Login</button>
+        <button onClick={handleLogin}>Login</button>
       </div>
     </div>
   );

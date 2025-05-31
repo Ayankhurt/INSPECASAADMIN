@@ -1,34 +1,21 @@
-import React, { useState } from 'react';
-import './Sidebar.css';
+import React from 'react';
+import './SideBar.css';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../images/logo.png';
-import userIcon from '../images/user1.png';
-import propertyIcon from '../images/property.png';
-import reportIcon from '../images/report.png';
-import supportIcon from '../images/support.png';
-import logoutIcon from '../images/logout.png';
+import logo from '../../images/logo.png';
+import userIcon from '../../images/user1.png';
+import propertyIcon from '../../images/property.png';
+import reportIcon from '../../images/report.png';
+import supportIcon from '../../images/support.png';
+import logoutIcon from '../../images/logout.png';
 
-const Sidebar = () => {
+const SideBar = ({ isOpen, onToggle }) => {
   const location = useLocation();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
 
   return (
     <>
-      <button className="sidebar-toggle" onClick={toggleSidebar}>
-        <div className="toggle-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </button>
-
-      <div className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+      <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
         <div className="logo-container">
-          <img src={logo} alt="InspeCasa" className="logo" />
+          <img src={logo} alt="Logo" className="logo" />
           <br />
           <span className="logo-text">InspeCasa<br />PROPERTY EYE</span>
         </div>
@@ -70,9 +57,9 @@ const Sidebar = () => {
           <span>Logout</span>
         </Link>
       </div>
-      {isSidebarOpen && <div className="sidebar-overlay" onClick={toggleSidebar}></div>}
+      {isOpen && <div className="sidebar-overlay" onClick={onToggle}></div>}
     </>
   );
 };
 
-export default Sidebar; 
+export default SideBar; 

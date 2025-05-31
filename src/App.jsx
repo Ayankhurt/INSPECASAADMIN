@@ -1,24 +1,40 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './componements/login';
-import Users from './componements/Users';
-import Property from './componements/Property';
-import Reports from './componements/Reports';
-import Support from './componements/Support';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, useLocation } from 'react-router-dom';
+import CustomRoutes from './CustomRoutes/CustomRoutes';
+import SideBar from './Component/SideBarSec/SideBar';
+import Header from './Component/HeaderSec/Header';
+import "./App.css";
 
-function App() {
+const AppContent = () => {
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/';
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  return (
+    <div className='main-container'>
+      {!isLoginPage && (
+        <>
+          <SideBar isOpen={isSidebarOpen} onToggle={toggleSidebar} />
+          <Header toggleSidebar={toggleSidebar} />
+        </>
+      )}
+      <div className={`route ${!isLoginPage ? 'with-nav' : ''} ${!isSidebarOpen ? 'sidebar-closed' : ''}`}>
+        <CustomRoutes />
+      </div>
+    </div>
+  );
+};
+
+const App = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/property" element={<Property />} />
-        <Route path="/reports" element={<Reports />} />
-        <Route path="/support" element={<Support />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
-      </Routes>
+      <AppContent />
     </Router>
   );
-}
+};
 
 export default App;
